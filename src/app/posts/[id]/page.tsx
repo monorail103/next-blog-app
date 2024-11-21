@@ -20,18 +20,30 @@ const Page: React.FC = () => {
 
   // コンポーネントが読み込まれたときに「1回だけ」実行する処理
   useEffect(() => {
-    // 本来はウェブAPIを叩いてデータを取得するが、まずはモックデータを使用
-    // (ネットからのデータ取得をシミュレートして１秒後にデータをセットする)
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      console.log("ウェブAPIからデータを取得しました (虚言)");
-      // dummyPosts から id に一致する投稿を取得してセット
-      setPost(dummyPosts.find((post) => post.id === id) || null);
-      setIsLoading(false);
-    }, 1000);
-
-    // データ取得の途中でページ遷移したときにタイマーを解除する処理
-    return () => clearTimeout(timer);
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        // microCMS から記事データを取得
+        const requestUrl = `${process.env.NEXT_PUBLIC_MICROCMS_BASE_EP}/posts/${id}`;
+        const response = await fetch(requestUrl, {
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            "X-MICROCMS-API-KEY": process.env.NEXT_PUBLIC_MICROCMS_API_KEY!,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("データの取得に失敗しました");
+        }
+        const data = await response.json();
+        setPost(data as Post);
+      } catch (e) {
+        setPost(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPost();
   }, [id]);
 
   // 投稿データの取得中は「Loading...」を表示
