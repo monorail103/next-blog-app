@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// 
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 投稿記事テーブル
+model Post {
+  id             String @id @default(uuid())
+  title          String
+  content        String
+  coverImageURL  String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  categories     PostCategory[]
+}
+
+// カテゴリテーブル
+model Category {
+  id         String @id @default(uuid())
+  name       String @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  posts      PostCategory[]
+}
+
+// 投稿記事とカテゴリを紐づける中間テーブル
+model PostCategory {
+  id          String @id @default(uuid())
+  postId      String
+  categoryId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
