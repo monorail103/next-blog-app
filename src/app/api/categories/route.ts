@@ -1,14 +1,15 @@
 import prisma from "@/app/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
+import { Category } from "@prisma/client";
 
-// [GET] /api/categories カテゴリ一覧の取得
 export const GET = async (req: NextRequest) => {
   try {
-    const categories = await prisma.category.findMany({
+    const categories: Category[] = await prisma.category.findMany({
       orderBy: {
-        createdAt: "desc", // 降順 (新しい順)
+        createdAt: "desc",
       },
     });
+    throw new Error("意図的にエラーを発生させる!!!"); // ◀ 追加
     return NextResponse.json(categories);
   } catch (error) {
     console.error(error);
