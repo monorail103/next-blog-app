@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // ◀ 注目
-
+import { useParams } from "next/navigation";
 import type { Post } from "@/app/_types/Post";
-import dummyPosts from "@/app/_mocks/dummyPosts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -14,9 +12,10 @@ import DOMPurify from "isomorphic-dompurify";
 const Page: React.FC = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
 
   // 動的ルートパラメータから 記事id を取得 （URL:/posts/[id]）
-  const { id } = useParams() as { id: string };
+  const { id } = useParams<{ id: string }>();
 
   // コンポーネントが読み込まれたときに「1回だけ」実行する処理
   useEffect(() => {
@@ -24,7 +23,7 @@ const Page: React.FC = () => {
       setIsLoading(true);
       try {
         // microCMS から記事データを取得
-        const requestUrl = `${process.env.NEXT_PUBLIC_MICROCMS_BASE_EP}/posts/${id}`;
+        const requestUrl = `/api/posts/${id}`;
         const response = await fetch(requestUrl, {
           method: "GET",
           cache: "no-store",
@@ -37,6 +36,13 @@ const Page: React.FC = () => {
         }
         const data = await response.json();
         setPost(data as Post);
+
+        // 画像のサイズを取得
+        const img = new window.Image();
+        img.src = data.coverImageURL;
+        img.onload = () => {
+          setImageSize({ width: img.width, height: img.height });
+        };
       } catch (e) {
         setPost(null);
       } finally {
@@ -71,14 +77,15 @@ const Page: React.FC = () => {
       <div className="space-y-2">
         <div className="mb-2 text-2xl font-bold">{post.title}</div>
         <div>
-          <Image
-            src={post.coverImage.url}
-            alt="Example Image"
-            width={post.coverImage.width}
-            height={post.coverImage.height}
-            priority
-            className="rounded-xl"
-          />
+          {imageSize && (
+            <img
+              src={post.coverImageURL}
+              alt="Example Image"
+              width={imageSize.width}
+              height={imageSize.height}
+              className="rounded-xl"
+            />
+          )}
         </div>
         <div dangerouslySetInnerHTML={{ __html: safeHTML }} />
       </div>

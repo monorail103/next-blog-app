@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
     });
     return NextResponse.json(posts);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching posts:", error);
     return NextResponse.json(
       { error: "投稿記事の一覧の取得に失敗しました" },
       { status: 500 }

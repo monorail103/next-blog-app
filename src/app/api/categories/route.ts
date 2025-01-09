@@ -9,7 +9,6 @@ export const GET = async (req: NextRequest) => {
         createdAt: "desc",
       },
     });
-    throw new Error("意図的にエラーを発生させる!!!"); // ◀ 追加
     return NextResponse.json(categories);
   } catch (error) {
     console.error(error);
