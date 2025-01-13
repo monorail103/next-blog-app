@@ -1,10 +1,20 @@
 "use client";
 import { twMerge } from "tailwind-merge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons"; 
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { supabase } from "@/utils/supabase"; // ◀ 追加
+import { useAuth } from "@/app/_hooks/useAuth"; // ◀ 追加
+import { useRouter } from "next/navigation"; // ◀ 追加
 import Link from "next/link";
 
 const Header: React.FC = () => {
+  const router = useRouter();
+  const { isLoading, session } = useAuth();
+  const logout = async () => {
+    await supabase.auth.signOut();
+    router.replace("/");
+  };
+
   return (
     <header>
       <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-4 shadow-md">
@@ -26,6 +36,8 @@ const Header: React.FC = () => {
             </span>
           </Link>
 
+
+
           {/* ナビゲーション */}
           <nav className="flex space-x-6 text-white">
             <Link
@@ -34,6 +46,12 @@ const Header: React.FC = () => {
             >
               About
             </Link>
+            {!isLoading &&
+              (session ? (
+                <button onClick={logout}>Logout</button>
+              ) : (
+                <Link href="/login">Login</Link>
+              ))}
           </nav>
         </div>
       </div>

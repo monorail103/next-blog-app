@@ -1,0 +1,89 @@
+[
+  {
+    "id": "1e49e309-37bc-472d-873c-71a50ff8897a",
+    "title": "aaaaa",
+    "content": "fdsafsasd",
+    "createdAt": "2025-01-13T06:37:36.247Z",
+    "categories": []
+  },
+  {
+    "id": "6cfe49ac-c836-48d6-981a-f09a1fe36ad4",
+    "title": "ああ",
+    "content": "あああ",
+    "createdAt": "2025-01-13T06:35:08.656Z",
+    "categories": []
+  },
+  {
+    "id": "51109358-c62b-4947-85a7-18f4fc1af327",
+    "title": "投稿4",
+    "content": "投稿4の本文。<br/>投稿4の本文。投稿4の本文。",
+    "createdAt": "2025-01-13T06:04:07.312Z",
+    "categories": []
+  },
+  {
+    "id": "d1eb5ee5-d524-4992-b3c3-6a7c54d1ce67",
+    "title": "投稿3",
+    "content": "投稿3の本文。<br/>投稿3の本文。投稿3の本文。",
+    "createdAt": "2025-01-13T06:04:07.303Z",
+    "categories": [
+      {
+        "category": {
+          "id": "212d33eb-a013-4640-8b47-2a1cc0488121",
+          "name": "カテゴリ1"
+        }
+      },
+      {
+        "category": {
+          "id": "4f72c0e9-2979-4d15-a49b-883592892e3f",
+          "name": "カテゴリ3"
+        }
+      },
+      {
+        "category": {
+          "id": "86959960-9deb-404a-8646-d5fb25802311",
+          "name": "カテゴリ4"
+        }
+      }
+    ]
+  },
+  {
+    "id": "92049013-82c4-42bd-9789-64fcaf402490",
+    "title": "投稿2",
+    "content": "投稿2の本文。<br/>投稿2の本文。投稿2の本文。",
+    "createdAt": "2025-01-13T06:04:07.293Z",
+    "categories": [
+      {
+        "category": {
+          "id": "960e087a-0a25-4e5f-9d54-7bba8a694f33",
+          "name": "カテゴリ2"
+        }
+      },
+      {
+        "category": {
+          "id": "4f72c0e9-2979-4d15-a49b-883592892e3f",
+          "name": "カテゴリ3"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9e7e0ce-219f-49da-9d81-3a2efb6d3c42",
+    "title": "投稿1",
+    "content": "投稿1の本文。<br/>投稿1の本文。投稿1の本文。",
+    "createdAt": "2025-01-13T06:04:07.283Z",
+    "categories": [
+      {
+        "category": {
+          "id": "212d33eb-a013-4640-8b47-2a1cc0488121",
+          "name": "カテゴリ1"
+        }
+      },
+      {
+        "category": {
+          "id": "960e087a-0a25-4e5f-9d54-7bba8a694f33",
+          "name": "カテゴリ2"
+        }
+      }
+    ]
+  }
+]

@@ -29,7 +29,7 @@ const Page: React.FC = () => {
       }
 
       const data: Category = await res.json();
-      setName(data.name);
+      setName(data.category.name);
       alert("カテゴリが更新されました");
     } catch (e) {
       alert(e instanceof Error ? e.message : "予期せぬエラーが発生しました");
@@ -73,51 +73,51 @@ const Page: React.FC = () => {
 
   return (
     <main className="min-h-screen py-10 px-6">
-        <div className="mx-auto max-w-2xl rounded-lg bg-white p-8 shadow-lg">
-            {/* タイトル */}
-            <h1 className="text-2xl font-extrabold text-indigo-600 mb-6">カテゴリ編集</h1>
+      <div className="mx-auto max-w-2xl rounded-lg bg-white p-8 shadow-lg">
+        {/* タイトル */}
+        <h1 className="text-2xl font-extrabold text-indigo-600 mb-6">カテゴリ編集</h1>
 
-            {/* フォーム */}
-            <form>
-            <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                名前:
-                </label>
-                <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="カテゴリ名を入力"
-                className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300"
-                />
-            </div>
-
-            {/* ボタン群 */}
-            <div className="flex space-x-4">
-                <button
-                type="button"
-                onClick={handleUpdate}
-                className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white font-bold shadow-md transition-all duration-300 hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-300"
-                >
-                更新
-                </button>
-                <button
-                type="button"
-                onClick={handleDelete}
-                className="w-full rounded-md bg-red-500 px-4 py-2 text-white font-bold shadow-md transition-all duration-300 hover:bg-red-400 focus:ring-2 focus:ring-red-300"
-                >
-                削除
-                </button>
-            </div>
-            </form>
+        {/* フォーム */}
+        <form>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              名前:
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="カテゴリ名を入力"
+              className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300"
+            />
           </div>
-          <Link href="/admin/categories/new">
-              <div className="mt-6 flex justify-center">
-                <button className="rounded-md bg-gray-200 px-4 py-2 text-gray-700 font-bold shadow-md transition-all duration-300 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300">
-                  カテゴリ一覧に戻る
-                </button>
-              </div>
-          </Link>
+
+          {/* ボタン群 */}
+          <div className="flex space-x-4">
+            <button
+              type="button"
+              onClick={handleUpdate}
+              className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white font-bold shadow-md transition-all duration-300 hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-300"
+            >
+              更新
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="w-full rounded-md bg-red-500 px-4 py-2 text-white font-bold shadow-md transition-all duration-300 hover:bg-red-400 focus:ring-2 focus:ring-red-300"
+            >
+              削除
+            </button>
+          </div>
+        </form>
+      </div>
+      <Link href="/admin/categories/new">
+        <div className="mt-6 flex justify-center">
+          <button className="rounded-md bg-gray-200 px-4 py-2 text-gray-700 font-bold shadow-md transition-all duration-300 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300">
+            カテゴリ一覧に戻る
+          </button>
+        </div>
+      </Link>
     </main>
 
   );

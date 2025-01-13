@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import type { Post } from "@/app/_types/Post";
+import type { Category } from "@/app/_types/Category";
 import PostSummary from "@/app/_components/PostSummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +25,7 @@ const Page: React.FC = () => {
           },
         });
 
-        if(!res.ok) {
+        if (!res.ok) {
           throw new Error("記事の取得に失敗しました");
         }
 
@@ -52,6 +53,8 @@ const Page: React.FC = () => {
       </div>
     );
   }
+
+  // console.log(posts.map(post => post.categories?.map(category => category.category.name)));
 
   return (
     <main>

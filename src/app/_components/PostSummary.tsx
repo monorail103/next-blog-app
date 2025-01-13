@@ -8,6 +8,7 @@ type Props = {
 
 const PostSummary: React.FC<Props> = (props) => {
   const { post } = props;
+
   return (
     <Link href={`/posts/${post.id}`}>
       <div className="group relative cursor-pointer overflow-hidden rounded-md border border-gray-200 bg-white shadow-md transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg">
@@ -20,6 +21,20 @@ const PostSummary: React.FC<Props> = (props) => {
           <div className="mb-2 text-lg font-bold text-gray-800 transition-colors group-hover:text-indigo-600">
             {post.title}
           </div>
+
+          {/* カテゴリ */}
+          <p className="text-sm text-gray-600 mb-2">
+            {" "}
+            {post.categories && post.categories.length > 0 ? (
+              post.categories.map((cat) => (
+                <span key={cat.category.id} className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 px-2 py-1 text-xs font-semibold text-white rounded-md shadow-sm mr-1">
+                  {cat.category.name}
+                </span>
+              ))
+            ) : (
+              <span className="text-gray-500">カテゴリなし</span>
+            )}
+          </p>
 
           {/* 本文 */}
           <div
