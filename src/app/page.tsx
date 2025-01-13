@@ -55,7 +55,9 @@ const Page: React.FC = () => {
 
   return (
     <main>
-      <div className="mb-2 text-2xl font-bold">Main</div>
+      <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 leading-tight mb-6">
+        main
+      </h1>
       <div className="space-y-3">
         {posts.map((post) => (
           <PostSummary key={post.id} post={post} />

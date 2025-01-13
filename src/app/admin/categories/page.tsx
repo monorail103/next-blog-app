@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import type { Category } from "@/app/_types/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import DOMPurify from "isomorphic-dompurify";
 
 // カテゴリ一覧表示 /admin/categories
 const Page: React.FC = () => {

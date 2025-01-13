@@ -10,12 +10,29 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
       { status: 400 }
     );
   }
-
   try {
     const post = await prisma.post.findUnique({
-      where: { id },
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+        coverImageURL: true,
+        categories: {
+          select: {
+            category: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
     });
-
     if (!post) {
       return NextResponse.json(
         { error: `ID: ${id} の記事は見つかりませんでした` },
