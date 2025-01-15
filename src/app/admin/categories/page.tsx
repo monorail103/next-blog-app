@@ -49,7 +49,7 @@ const Page: React.FC = () => {
                 throw new Error("カテゴリの削除に失敗しました");
             }
 
-            setCategories(categories?.filter((category) => category.category.id !== id) || null);
+            setCategories(categories?.filter((category) => category.id !== id) || null);
         } catch (e) {
             setFetchError(
                 e instanceof Error ? e.message : "予期せぬエラーが発生しました"
@@ -58,7 +58,7 @@ const Page: React.FC = () => {
     };
 
     const filteredCategories = categories?.filter((category) =>
-        category.category.name.toLowerCase().includes(searchQuery.toLowerCase())
+        category.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -90,21 +90,21 @@ const Page: React.FC = () => {
                         {filteredCategories?.length ? (
                             filteredCategories.map((category) => (
                                 <li
-                                    key={category.category.id}
+                                    key={category.id}
                                     className="flex justify-between items-center py-4 hover:bg-gray-50 transition duration-150 ease-in-out"
                                 >
                                     <span className="text-gray-700 font-medium text-lg">
-                                        {category.category.name}
+                                        {category.name}
                                     </span>
                                     <div className="flex items-center space-x-4">
                                         <a
-                                            href={`/admin/categories/${category.category.id}`}
+                                            href={`/admin/categories/${category.id}`}
                                             className="text-blue-500 hover:text-blue-700 transition font-medium"
                                         >
                                             編集
                                         </a>
                                         <button
-                                            onClick={() => handleDelete(category.category.id)}
+                                            onClick={() => handleDelete(category.id)}
                                             className="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 transition"
                                         >
                                             削除
