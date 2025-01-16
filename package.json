@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.47.12",
     "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.9",
+    "crypto-js": "^4.2.0",
     "isomorphic-dompurify": "^2.16.0",
     "next": "14.2.18",
     "react": "^18",
@@ -30,6 +31,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

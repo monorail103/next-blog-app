@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useAuth } from "@/app/_hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
@@ -16,6 +17,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const NewPostPage = () => {
+  const { token } = useAuth(); // トークンの取得
+
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -54,12 +57,25 @@ const NewPostPage = () => {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("/api/admin/posts", data);
+      if (!token) {
+        window.alert("ログインしていません");
+        return;
+      }
+      const response = await axios.post("/api/admin/posts", data, {
+        headers: {
+          Authorization: token,
+        },
+      });
       if (response.status === 200) {
         setSuccessMessage("投稿が成功しました");
+        setValue("title", "");
+        setValue("content", "");
+        setValue("coverImageURL", "");
+        setValue("categoryIds", []);
       }
     } catch (error) {
       console.error("投稿に失敗しました", error);
+      window.alert("投稿に失敗しました");
     }
   };
 
