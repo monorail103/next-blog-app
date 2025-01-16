@@ -28,9 +28,10 @@ const Page: React.FC = () => {
         throw new Error("カテゴリの更新に失敗しました");
       }
 
-      const data: Category = await res.json();
-      setName(data.category.name);
+      const updatedCategory = (await res.json()) as Category;
       alert("カテゴリが更新されました");
+      router.push(`/admin/categories`);
+
     } catch (e) {
       alert(e instanceof Error ? e.message : "予期せぬエラーが発生しました");
     } finally {

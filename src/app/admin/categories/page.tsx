@@ -4,33 +4,66 @@ import type { Category } from "@/app/_types/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+// カテゴリをフェッチしたときのレスポンスのデータ型
+type CategoryApiResponse = {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
 const Page: React.FC = () => {
-    const [categories, setCategories] = useState<Category[] | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [fetchError, setFetchError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [fetchErrorMsg, setFetchErrorMsg] = useState<string | null>(null);
+    const [newCategoryName, setNewCategoryName] = useState("");
+    const [newCategoryNameError, setNewCategoryNameError] = useState("");
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const res = await fetch(`/api/categories`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+    // カテゴリ配列 (State)。取得中と取得失敗時は null、既存カテゴリが0個なら []
+    const [categories, setCategories] = useState<Category[] | null>(null);
 
-                if (!res.ok) {
-                    throw new Error("カテゴリの取得に失敗しました");
-                }
+    // ウェブAPI (/api/categories) からカテゴリの一覧をフェッチする関数の定義
+    const fetchCategories = async () => {
+        try {
+            setIsLoading(true);
 
-                const data: Category[] = await res.json();
-                setCategories(data);
-            } catch (e) {
-                setFetchError(
-                    e instanceof Error ? e.message : "予期せぬエラーが発生しました"
-                );
+            // フェッチ処理の本体
+            const requestUrl = "/api/categories";
+            const res = await fetch(requestUrl, {
+                method: "GET",
+                cache: "no-store",
+            });
+
+            // レスポンスのステータスコードが200以外の場合 (カテゴリのフェッチに失敗した場合)
+            if (!res.ok) {
+                setCategories(null);
+                throw new Error(`${res.status}: ${res.statusText}`); // -> catch節に移動
             }
-        };
+
+            // レスポンスのボディをJSONとして読み取りカテゴリ配列 (State) にセット
+            const apiResBody = (await res.json()) as CategoryApiResponse[];
+            setCategories(
+                apiResBody.map((body) => ({
+                    id: body.id,
+                    name: body.name,
+                }))
+            );
+        } catch (error) {
+            const errorMsg =
+                error instanceof Error
+                    ? `カテゴリの一覧のフェッチに失敗しました: ${error.message}`
+                    : `予期せぬエラーが発生しました ${error}`;
+            console.error(errorMsg);
+            setFetchErrorMsg(errorMsg);
+        } finally {
+            // 成功した場合も失敗した場合もローディング状態を解除
+            setIsLoading(false);
+        }
+    };
+
+    // コンポーネントがマウントされたとき (初回レンダリングのとき) に1回だけ実行
+    useEffect(() => {
         fetchCategories();
     }, []);
 
