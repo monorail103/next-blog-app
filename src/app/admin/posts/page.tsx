@@ -71,7 +71,7 @@ const Page: React.FC = () => {
     )
     .filter((post) =>
       selectedCategory === "" ||
-      post.categories.some((cat) => cat.category.name === selectedCategory)
+      post.categories.some((cat) => cat.name === selectedCategory)
     )
     .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
 
@@ -122,8 +122,8 @@ const Page: React.FC = () => {
           >
             <option value="">すべてのカテゴリ</option>
             {categories.map((cat) => (
-              <option key={cat.category.id} value={cat.category.name}>
-                {cat.category.name}
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
               </option>
             ))}
           </select>
@@ -148,7 +148,7 @@ const Page: React.FC = () => {
                 {post.title}
               </h2>
               <p className="text-sm mb-4">
-                カテゴリ: {post.categories.map((cat) => cat.category.name).join(", ") || "なし"}
+                カテゴリ: {post.categories.map((cat) => cat.name).join(", ") || "なし"}
               </p>
               <p className="text-sm mb-6">
                 作成日: {new Date(post.createdAt).toLocaleDateString()}
