@@ -36,8 +36,8 @@ const Page: React.FC = () => {
       {/* 著者の情報 */}
       <div className="mx-auto max-w-2xl px-6 text-center">
         <p className="text-lg text-slate-600 leading-relaxed">
-          Hi there! I'm <span className="font-bold text-indigo-600">monorail103</span>, the author of this blog.
-          I love sharing knowledge about technology, design, and everything in between. When I'm not coding, you can find me enjoying a cup of coffee or exploring new places.
+          Hi there! I&apos;m <span className="font-bold text-indigo-600">monorail103</span>, the author of this blog.
+          I love sharing knowledge about technology, design, and everything in between. When I&apos;m not coding, you can find me enjoying a cup of coffee or exploring new places.
         </p>
       </div>
 

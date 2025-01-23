@@ -103,6 +103,7 @@ const Page: React.FC = () => {
               {categories.map((category) => (
                 <span
                   className="inline-block rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-3 py-1 text-sm font-semibold text-white shadow-sm transition-transform duration-300 hover:scale-105"
+                  key={category.id}
                 >
                   {category.name}
                 </span>
