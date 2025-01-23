@@ -27,8 +27,8 @@ const PostSummary: React.FC<Props> = (props) => {
             {" "}
             {post.categories && post.categories.length > 0 ? (
               post.categories.map((cat) => (
-                <span key={cat.category.id} className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 px-2 py-1 text-xs font-semibold text-white rounded-md shadow-sm mr-1">
-                  {cat.category.name}
+                <span key={cat.id} className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 px-2 py-1 text-xs font-semibold text-white rounded-md shadow-sm mr-1">
+                  {cat.name}
                 </span>
               ))
             ) : (
