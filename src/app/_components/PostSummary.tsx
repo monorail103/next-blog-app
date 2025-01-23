@@ -1,5 +1,6 @@
 "use client";
 import type { Post } from "@/app/_types/Post";
+import type { Category } from "@/app/_types/Category";
 import Link from "next/link";
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 
 const PostSummary: React.FC<Props> = (props) => {
   const { post } = props;
+  const categories: Category[] = post.categories.map((cat: any) => cat.category);
 
   return (
     <Link href={`/posts/${post.id}`}>
@@ -25,10 +27,11 @@ const PostSummary: React.FC<Props> = (props) => {
           {/* カテゴリ */}
           <p className="text-sm text-gray-600 mb-2">
             {" "}
-            {post.categories && post.categories.length > 0 ? (
-              post.categories.map((cat) => (
-                <span key={cat.id} className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 px-2 py-1 text-xs font-semibold text-white rounded-md shadow-sm mr-1">
-                  {cat.name}
+            {categories && categories.length > 0 ? (
+              categories.map((category) => (
+                console.log(category),
+                <span key={category.id} className="inline-block bg-gradient-to-r from-indigo-500 to-purple-500 px-2 py-1 text-xs font-semibold text-white rounded-md shadow-sm mr-1">
+                  {category.name}
                 </span>
               ))
             ) : (
