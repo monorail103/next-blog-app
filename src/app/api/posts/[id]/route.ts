@@ -1,6 +1,8 @@
 import prisma from "@/app/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
+export const revalidate = 0;
+
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
   const { id } = params;
 
