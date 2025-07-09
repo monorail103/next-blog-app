@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 export const revalidate = 0;
 
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return NextResponse.json(
