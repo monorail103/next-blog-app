@@ -24,7 +24,7 @@
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "isomorphic-dompurify": "^2.16.0",
-    "next": "14.2.18",
+    "next": "14.2.35",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
